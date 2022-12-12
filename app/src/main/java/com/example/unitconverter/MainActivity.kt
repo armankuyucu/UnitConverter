@@ -1,5 +1,6 @@
 package com.example.unitconverter
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.unitconverter.databinding.ActivityMainBinding
@@ -12,6 +13,21 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.lenghtImage.setOnClickListener {
+            Intent(this, LenghtConverterActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+        binding.areaImage.setOnClickListener {
+            Intent(this, AreaConverterActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+        binding.weightImage.setOnClickListener {
+            Intent(this, WeightConverterActivity::class.java).also {
+                startActivity(it)
+            }
+        }
     }
 
 

@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">UnitConverter</string>
+    <string-array name="length">
+        <item>Metre</item>
+        <item>Kilometre</item>
+        <item>Santimetre</item>
+        <item>Milimetre</item>
+        <item>Mikrometre</item>
+        <item>Nanometre</item>
+        <item>Mil</item>
+        <item>Yard</item>
+        <item>Foot</item>
+        <item>Inch</item>
+    </string-array>
 </resources>
