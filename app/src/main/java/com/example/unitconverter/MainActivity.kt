@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.lenghtImage.setOnClickListener {
-            Intent(this, LenghtConverterActivity::class.java).also {
+            Intent(this, LengthConverterActivity::class.java).also {
                 startActivity(it)
             }
         }
