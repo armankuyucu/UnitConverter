@@ -5,27 +5,22 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
-import android.widget.EditText
-import android.widget.Spinner
-import androidx.appcompat.app.AppCompatActivity
 import com.example.unitconverter.databinding.ActivityLenghtConverterBinding
 
-class LengthConverterActivity : AppCompatActivity() {
+class LengthConverterActivity : ConverterActivity() {
     private lateinit var binding: ActivityLenghtConverterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLenghtConverterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.imageView2.setOnClickListener {
 
-        }
         binding.editTextInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(s.toString().isNotEmpty()){
+                if (s.toString().isNotEmpty()) {
                     convert()
                 }
             }
@@ -36,9 +31,14 @@ class LengthConverterActivity : AppCompatActivity() {
         })
 
         binding.spinnerInput.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
                 // This method is called whenever an item is selected in the Spinner
-                if (binding.editTextInput.text.isNotEmpty()){
+                if (binding.editTextInput.text.isNotEmpty()) {
                     convert()
                 }
             }
@@ -47,9 +47,14 @@ class LengthConverterActivity : AppCompatActivity() {
         }
 
         binding.spinnerOutput.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
                 // This method is called whenever an item is selected in the Spinner
-                if (binding.editTextOutput.text.isNotEmpty()){
+                if (binding.textViewOutput.text.isNotEmpty()) {
                     convert()
                 }
             }
@@ -57,19 +62,9 @@ class LengthConverterActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-        binding.imageView2.setOnClickListener {
-            swapSpinnerTexts()
+        binding.swapSpinner.setOnClickListener {
+            swapSpinnerTexts(binding.spinnerInput,binding.spinnerOutput)
         }
-    }
-
-    fun getSpinnerSelection(spinner: Spinner): String {
-        // Get the selected item from the spinner
-        return spinner.selectedItem.toString()
-    }
-
-    fun getEditTextInput(editText: EditText): Double {
-        // Get the text from the editText
-        return editText.text.toString().toDouble()
     }
 
     fun convertLength(value: Double, fromUnit: String, toUnit: String): Double {
@@ -96,12 +91,7 @@ class LengthConverterActivity : AppCompatActivity() {
         val from = getSpinnerSelection(binding.spinnerInput)
         val to = getSpinnerSelection(binding.spinnerOutput)
         val convertedValue = convertLength(input, from, to)
-        binding.editTextOutput.setText(convertedValue.toString())
+        binding.textViewOutput.text = convertedValue.toString()
     }
 
-    fun swapSpinnerTexts(){
-        val temp = binding.spinnerOutput.selectedItemPosition
-        binding.spinnerOutput.setSelection(binding.spinnerInput.selectedItemPosition)
-        binding.spinnerInput.setSelection(temp)
-    }
 }

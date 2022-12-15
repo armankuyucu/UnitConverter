@@ -5,14 +5,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
-import com.example.unitconverter.databinding.ActivityWeightConverterBinding
+import com.example.unitconverter.databinding.ActivityTemperatureConverterBinding
 
-class WeightConverterActivity : ConverterActivity() {
-    private lateinit var binding: ActivityWeightConverterBinding
-
+class TemperatureConverterActivity : ConverterActivity() {
+    private lateinit var binding: ActivityTemperatureConverterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityWeightConverterBinding.inflate(layoutInflater)
+        binding = ActivityTemperatureConverterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.editTextInput.addTextChangedListener(object : TextWatcher {
@@ -63,31 +62,26 @@ class WeightConverterActivity : ConverterActivity() {
         }
 
         binding.swapSpinner.setOnClickListener {
-            swapSpinnerTexts(binding.spinnerInput,binding.spinnerOutput)
+            swapSpinnerTexts(binding.spinnerInput, binding.spinnerOutput)
         }
 
     }
 
-    fun convertWeight(value: Double, fromUnit: String, toUnit: String): Double {
+    fun convertTemperature(value: Double, fromUnit: String, toUnit: String): Double {
+        // Define the conversion factors
         val conversionFactors = mapOf(
-            "mikrogram" to 0.000001,
-            "miligram" to 0.001,
-            "santigram" to 0.01,
-            "desigram" to 0.1,
-            "gram" to 1.0,
-            "dekagram" to 10.0,
-            "hektogram" to 100.0,
-            "kilogram" to 1000.0,
-            "megagram" to 1000000.0,
-            "ons" to 28.3495,
-            "pound" to 453.592,
-            "stone" to 6350.29,
-            "ton" to 1000000.0,
-            )
+            "kelvin" to 1.0,
+            "celsius" to 273.15,
+            "fahrenheit" to 459.67,
+            "rankine" to 1.8,
+            "reaumur" to 0.8,
+        )
 
+        // Get the conversion factors for the input units
         val fromFactor = conversionFactors.getValue(fromUnit.lowercase())
         val toFactor = conversionFactors.getValue(toUnit.lowercase())
 
+        // Convert the time using the conversion factors
         return value * fromFactor / toFactor
     }
 
@@ -95,7 +89,8 @@ class WeightConverterActivity : ConverterActivity() {
         val input = getEditTextInput(binding.editTextInput)
         val from = getSpinnerSelection(binding.spinnerInput)
         val to = getSpinnerSelection(binding.spinnerOutput)
-        val convertedValue = convertWeight(input, from, to)
+        val convertedValue = convertTemperature(input, from, to)
         binding.textViewOutput.text = convertedValue.toString()
     }
+
 }

@@ -7,7 +7,7 @@
 
     <Spinner
         android:id="@+id/spinnerOutput"
-        android:entries="@array/weight"
+        android:entries="@array/time"
         android:layout_width="150dp"
         android:layout_height="75dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,7 @@
 
     <Spinner
         android:id="@+id/spinnerInput"
-        android:entries="@array/weight"
+        android:entries="@array/time"
         android:layout_width="150dp"
         android:layout_height="75dp"
         app:layout_constraintEnd_toEndOf="parent"
