@@ -12,4 +12,44 @@
         <item>Foot</item>
         <item>Inch</item>
     </string-array>
+
+    <string-array name="weight">
+        <item>Mikrogram</item>
+        <item>Miligram</item>
+        <item>Santigram</item>
+        <item>Desigram</item>
+        <item>Gram</item>
+        <item>Dekagram</item>
+        <item>Hektogram</item>
+        <item>Kilogram</item>
+        <item>Megagram</item>
+        <item>Ons</item>
+        <item>Pound</item>
+        <item>Ton</item>
+    </string-array>
+
+    <string-array name="area">
+        <item>Milimetre Kare</item>
+        <item>Santimetre Kare</item>
+        <item>Metre Kare</item>
+        <item>Hektar</item>
+        <item>Kilometre Kare</item>
+        <item>Inch Kare</item>
+        <item>Foot Kare</item>
+        <item>Yard Kare</item>
+        <item>Mil Kare</item>
+        <item>Akre</item>
+    </string-array>
+
+    <string-array name="volume">
+        <item>Mikrolitre</item>
+        <item>Mililitre</item>
+        <item>Litre</item>
+        <item>Metre Küp</item>
+        <item>Galon</item>
+        <item>Pint</item>
+        <item>Quart</item>
+        <item>Cubic Inch</item>
+    </string-array>
+
 </resources>

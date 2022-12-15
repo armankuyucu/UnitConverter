@@ -28,6 +28,11 @@ class MainActivity : AppCompatActivity() {
                 startActivity(it)
             }
         }
+        binding.volumeImage.setOnClickListener {
+            Intent(this, VolumeConverterActivity::class.java).also {
+                startActivity(it)
+            }
+        }
     }
 
 
