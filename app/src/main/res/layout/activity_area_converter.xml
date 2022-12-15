@@ -12,10 +12,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/editTextInput"
-        app:layout_constraintTop_toTopOf="@+id/editTextOutput" />
+        app:layout_constraintTop_toTopOf="@+id/textViewOutput" />
 
     <EditText
-        android:id="@+id/editTextOutput"
+        android:id="@+id/textViewOutput"
         android:layout_width="0dp"
         android:layout_height="75dp"
         android:layout_marginTop="200dp"
@@ -51,10 +51,10 @@
         app:layout_constraintTop_toTopOf="@+id/editTextInput" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/swapSpinner"
         android:layout_width="102dp"
         android:layout_height="67dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextOutput"
+        app:layout_constraintBottom_toTopOf="@+id/textViewOutput"
         app:layout_constraintEnd_toEndOf="@+id/spinnerOutput"
         app:layout_constraintStart_toStartOf="@+id/spinnerOutput"
         app:layout_constraintTop_toBottomOf="@+id/editTextInput"

@@ -12,4 +12,20 @@
         <item>Foot</item>
         <item>Inch</item>
     </string-array>
+
+    <string-array name="weight">
+        <item>Mikrogram</item>
+        <item>Miligram</item>
+        <item>Santigram</item>
+        <item>Desigram</item>
+        <item>Gram</item>
+        <item>Dekagram</item>
+        <item>Hektogram</item>
+        <item>Kilogram</item>
+        <item>Megagram</item>
+        <item>Ons</item>
+        <item>Pound</item>
+        <item>Ton</item>
+    </string-array>
+
 </resources>
