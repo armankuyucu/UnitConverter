@@ -5,14 +5,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
-import com.example.unitconverter.databinding.ActivityWeightConverterBinding
+import com.example.unitconverter.databinding.ActivityTimeConverterBinding
 
-class WeightConverterActivity : ConverterActivity() {
-    private lateinit var binding: ActivityWeightConverterBinding
+class TimeConverterActivity : ConverterActivity() {
+    private lateinit var binding: ActivityTimeConverterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityWeightConverterBinding.inflate(layoutInflater)
+        binding = ActivityTimeConverterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.editTextInput.addTextChangedListener(object : TextWatcher {
@@ -68,26 +68,26 @@ class WeightConverterActivity : ConverterActivity() {
 
     }
 
-    fun convertWeight(value: Double, fromUnit: String, toUnit: String): Double {
+    fun convertTime(value: Double, fromUnit: String, toUnit: String): Double {
+        // Define the conversion factors
         val conversionFactors = mapOf(
-            "mikrogram" to 0.000001,
-            "miligram" to 0.001,
-            "santigram" to 0.01,
-            "desigram" to 0.1,
-            "gram" to 1.0,
-            "dekagram" to 10.0,
-            "hektogram" to 100.0,
-            "kilogram" to 1000.0,
-            "megagram" to 1000000.0,
-            "ons" to 28.3495,
-            "pound" to 453.592,
-            "stone" to 6350.29,
-            "ton" to 1000000.0,
-            )
+            "nano saniye" to 0.000000001,
+            "mikro saniye" to 0.000001,
+            "mili saniye" to 0.001,
+            "saniye" to 1.0,
+            "dakika" to 60.0,
+            "saat" to 3600.0,
+            "gün" to 86400.0,
+            "hafta" to 604800.0,
+            "ay" to 2629746.0,
+            "yıl" to 31556952.0
+        )
 
+        // Get the conversion factors for the input units
         val fromFactor = conversionFactors.getValue(fromUnit.lowercase())
         val toFactor = conversionFactors.getValue(toUnit.lowercase())
 
+        // Convert the time using the conversion factors
         return value * fromFactor / toFactor
     }
 
@@ -95,7 +95,8 @@ class WeightConverterActivity : ConverterActivity() {
         val input = getEditTextInput(binding.editTextInput)
         val from = getSpinnerSelection(binding.spinnerInput)
         val to = getSpinnerSelection(binding.spinnerOutput)
-        val convertedValue = convertWeight(input, from, to)
+        val convertedValue = convertTime(input, from, to)
         binding.textViewOutput.text = convertedValue.toString()
     }
+
 }

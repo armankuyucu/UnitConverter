@@ -28,6 +28,17 @@ class MainActivity : AppCompatActivity() {
                 startActivity(it)
             }
         }
+        binding.volumeImage.setOnClickListener {
+            Intent(this, VolumeConverterActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+        binding.timeImage.setOnClickListener {
+            Intent(this, TimeConverterActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+
     }
 
 
