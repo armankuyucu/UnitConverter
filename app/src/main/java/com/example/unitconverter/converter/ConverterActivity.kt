@@ -22,7 +22,14 @@ open class ConverterActivity : AppCompatActivity() {
 
     fun getEditTextInput(editText: EditText): Double {
         // Get the text from the editText
-        return editText.text.toString().toDouble()
+        try {
+            return editText.text.toString().toDouble()
+        } catch (e: java.lang.NumberFormatException){
+            Toast.makeText(this,"Giriş alanı boş olamaz", Toast.LENGTH_SHORT).show()
+        } catch (e: java.lang.Exception){
+            Toast.makeText(this,"Giriş alanı boş olamaz", Toast.LENGTH_SHORT).show()
+        }
+        return 0.0
     }
 
     fun swapSpinnerTexts(spinnerInput: Spinner, spinnerOutput: Spinner) {
@@ -50,10 +57,9 @@ open class ConverterActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
         }
-
     }
 
-    fun editSupportActionBar(context: Context, title: String){
+    fun editSupportActionBar(context: Context, title: String) {
         // Get the support action bar
         val actionBar = supportActionBar
 

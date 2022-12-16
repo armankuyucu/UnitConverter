@@ -99,6 +99,17 @@ class SQLiteHelper(context: Context) :
         return modelList
     }
 
+    fun deleteItem(id: Int): Boolean {
+        val db = this.writableDatabase
+        val deleteQuery = "DELETE FROM $TABLE_NAME WHERE $KEY_ID = $id"
+        try {
+            db.execSQL(deleteQuery)
+        } catch (e: SQLiteException) {
+            return false
+        }
+        return true
+    }
+
     fun deleteTable() {
         val db = this.writableDatabase
         db.execSQL(

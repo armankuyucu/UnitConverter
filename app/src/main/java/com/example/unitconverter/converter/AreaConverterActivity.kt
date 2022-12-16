@@ -65,6 +65,11 @@ class AreaConverterActivity : ConverterActivity() {
         binding.swapSpinner.setOnClickListener {
             swapSpinnerTexts(binding.spinnerInput,binding.spinnerOutput)
         }
+
+        binding.saveToDatabaseButton.setOnClickListener {
+            saveResult()
+        }
+
         editSupportActionBar(this, "Alan Dönüştürücü")
 
     }
@@ -103,7 +108,7 @@ class AreaConverterActivity : ConverterActivity() {
         val from = getSpinnerSelection(binding.spinnerInput)
         val to = getSpinnerSelection(binding.spinnerOutput)
         val convertedValue = convertArea(input, from, to)
-        binding.textViewOutput.text = convertedValue.toString()
+        binding.textViewOutput.text = String.format("%.4f",convertedValue)
         saveToDatabase(this,input,from,to,convertedValue)
     }
 

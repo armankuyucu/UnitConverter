@@ -78,6 +78,10 @@ class WeightConverterActivity : ConverterActivity() {
             swapSpinnerTexts(binding.spinnerInput, binding.spinnerOutput)
         }
 
+        binding.saveToDatabaseButton.setOnClickListener {
+            saveResult()
+        }
+
         editSupportActionBar(this, "Ağırlık Dönüştürücü")
     }
 

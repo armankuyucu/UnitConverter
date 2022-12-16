@@ -66,6 +66,10 @@ class TimeConverterActivity : ConverterActivity() {
             swapSpinnerTexts(binding.spinnerInput, binding.spinnerOutput)
         }
 
+        binding.saveToDatabaseButton.setOnClickListener {
+            saveResult()
+        }
+
         editSupportActionBar(this, "Zaman Dönüştürücü")
     }
 

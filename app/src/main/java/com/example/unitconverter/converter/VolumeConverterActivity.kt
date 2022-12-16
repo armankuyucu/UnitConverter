@@ -64,6 +64,11 @@ class VolumeConverterActivity : ConverterActivity() {
         binding.swapSpinner.setOnClickListener {
             swapSpinnerTexts(binding.spinnerInput,binding.spinnerOutput)
         }
+
+        binding.saveToDatabaseButton.setOnClickListener {
+            saveResult()
+        }
+
         editSupportActionBar(this, "Hacim Dönüştürücü")
 
     }
