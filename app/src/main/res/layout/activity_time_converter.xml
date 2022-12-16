@@ -61,10 +61,10 @@
 
     <Button
         android:id="@+id/saveToDatabaseButton"
-        android:backgroundTint="?attr/colorSecondary"
-        android:layout_width="154dp"
-        android:layout_height="61dp"
+        android:layout_width="175dp"
+        android:layout_height="75dp"
         android:layout_marginTop="32dp"
+        android:backgroundTint="?attr/colorSecondary"
         android:text="Veri Tabanına Kaydet"
         app:layout_constraintEnd_toStartOf="@+id/saveToFileButton"
         app:layout_constraintHorizontal_bias="0.5"
@@ -73,9 +73,9 @@
 
     <Button
         android:id="@+id/saveToFileButton"
+        android:layout_width="120dp"
+        android:layout_height="75dp"
         android:backgroundTint="?attr/colorSecondary"
-        android:layout_width="112dp"
-        android:layout_height="57dp"
         android:text="Dosyaya Kaydet"
         app:layout_constraintBaseline_toBaselineOf="@+id/saveToDatabaseButton"
         app:layout_constraintEnd_toEndOf="parent"

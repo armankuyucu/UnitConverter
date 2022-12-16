@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UnitConverter</string>
+    <string name="app_name">Birim Dönüştürücü</string>
     <string-array name="length">
         <item>Metre</item>
         <item>Kilometre</item>
