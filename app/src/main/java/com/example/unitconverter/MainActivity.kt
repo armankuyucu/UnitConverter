@@ -3,9 +3,10 @@ package com.example.unitconverter
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.unitconverter.converter.*
 import com.example.unitconverter.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ConverterActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(it)
             }
         }
-
+        editSupportActionBar(this,"Birim Dönüştürücü")
     }
 
 

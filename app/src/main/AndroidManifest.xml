@@ -13,47 +13,62 @@
         android:theme="@style/Theme.UnitConverter"
         tools:targetApi="31">
         <activity
-            android:name=".TemperatureConverterActivity"
-            android:exported="false">
+            android:name=".converter.TemperatureConverterActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".TimeConverterActivity"
-            android:exported="false">
+            android:name=".converter.TimeConverterActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".VolumeConverterActivity"
-            android:exported="false">
+            android:name=".converter.VolumeConverterActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".AreaConverterActivity"
-            android:exported="false">
+            android:name=".converter.AreaConverterActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".WeightConverterActivity"
-            android:exported="false">
+            android:name=".converter.WeightConverterActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LengthConverterActivity"
-            android:exported="false">
+            android:name=".converter.LengthConverterActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".data.TableActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -1,18 +1,17 @@
-package com.example.unitconverter
+package com.example.unitconverter.converter
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
-import com.example.unitconverter.databinding.ActivityTimeConverterBinding
+import com.example.unitconverter.databinding.ActivityTemperatureConverterBinding
 
-class TimeConverterActivity : ConverterActivity() {
-    private lateinit var binding: ActivityTimeConverterBinding
-
+class TemperatureConverterActivity : ConverterActivity() {
+    private lateinit var binding: ActivityTemperatureConverterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTimeConverterBinding.inflate(layoutInflater)
+        binding = ActivityTemperatureConverterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.editTextInput.addTextChangedListener(object : TextWatcher {
@@ -63,24 +62,20 @@ class TimeConverterActivity : ConverterActivity() {
         }
 
         binding.swapSpinner.setOnClickListener {
-            swapSpinnerTexts(binding.spinnerInput,binding.spinnerOutput)
+            swapSpinnerTexts(binding.spinnerInput, binding.spinnerOutput)
         }
+        editSupportActionBar(this, "Sıcaklık Dönüştürücü")
 
     }
 
-    fun convertTime(value: Double, fromUnit: String, toUnit: String): Double {
+    fun convertTemperature(value: Double, fromUnit: String, toUnit: String): Double {
         // Define the conversion factors
         val conversionFactors = mapOf(
-            "nano saniye" to 0.000000001,
-            "mikro saniye" to 0.000001,
-            "mili saniye" to 0.001,
-            "saniye" to 1.0,
-            "dakika" to 60.0,
-            "saat" to 3600.0,
-            "gün" to 86400.0,
-            "hafta" to 604800.0,
-            "ay" to 2629746.0,
-            "yıl" to 31556952.0
+            "kelvin" to 1.0,
+            "celsius" to 273.15,
+            "fahrenheit" to 459.67,
+            "rankine" to 1.8,
+            "reaumur" to 0.8,
         )
 
         // Get the conversion factors for the input units
@@ -95,8 +90,17 @@ class TimeConverterActivity : ConverterActivity() {
         val input = getEditTextInput(binding.editTextInput)
         val from = getSpinnerSelection(binding.spinnerInput)
         val to = getSpinnerSelection(binding.spinnerOutput)
-        val convertedValue = convertTime(input, from, to)
+        val convertedValue = convertTemperature(input, from, to)
         binding.textViewOutput.text = convertedValue.toString()
+    }
+
+    fun saveResult(){
+        val input = getEditTextInput(binding.editTextInput)
+        val from = getSpinnerSelection(binding.spinnerInput)
+        val to = getSpinnerSelection(binding.spinnerOutput)
+        val convertedValue = convertTemperature(input, from, to)
+        binding.textViewOutput.text = convertedValue.toString()
+        saveToDatabase(this,input,from,to,convertedValue)
     }
 
 }

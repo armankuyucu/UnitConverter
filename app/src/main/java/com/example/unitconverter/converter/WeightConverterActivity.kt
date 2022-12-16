@@ -1,17 +1,30 @@
-package com.example.unitconverter
+package com.example.unitconverter.converter
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
-import com.example.unitconverter.databinding.ActivityVolumeConverterBinding
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.appcompat.app.ActionBar
+import androidx.core.content.ContextCompat
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import com.example.unitconverter.R
+import com.example.unitconverter.data.TableActivity
+import com.example.unitconverter.databinding.ActivityWeightConverterBinding
 
-class VolumeConverterActivity : ConverterActivity() {
-    private lateinit var binding: ActivityVolumeConverterBinding
+class WeightConverterActivity : ConverterActivity() {
+    private lateinit var binding: ActivityWeightConverterBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityVolumeConverterBinding.inflate(layoutInflater)
+        binding = ActivityWeightConverterBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
 
         binding.editTextInput.addTextChangedListener(object : TextWatcher {
@@ -62,29 +75,32 @@ class VolumeConverterActivity : ConverterActivity() {
         }
 
         binding.swapSpinner.setOnClickListener {
-            swapSpinnerTexts(binding.spinnerInput,binding.spinnerOutput)
+            swapSpinnerTexts(binding.spinnerInput, binding.spinnerOutput)
         }
 
+        editSupportActionBar(this, "Ağırlık Dönüştürücü")
     }
 
-    fun convertVolume(value: Double, fromUnit: String, toUnit: String): Double {
-        // Define the conversion factors
+    fun convertWeight(value: Double, fromUnit: String, toUnit: String): Double {
         val conversionFactors = mapOf(
-            "mikrolitre" to 0.000001,
-            "mililitre" to 0.001,
-            "litre" to 1.0,
-            "metre küp" to 1000.0,
-            "galon" to 3.78541,
-            "pint" to 0.473176,
-            "quart" to 0.946353,
-            "cubic inch" to 0.0163871
+            "mikrogram" to 0.000001,
+            "miligram" to 0.001,
+            "santigram" to 0.01,
+            "desigram" to 0.1,
+            "gram" to 1.0,
+            "dekagram" to 10.0,
+            "hektogram" to 100.0,
+            "kilogram" to 1000.0,
+            "megagram" to 1000000.0,
+            "ons" to 28.3495,
+            "pound" to 453.592,
+            "stone" to 6350.29,
+            "ton" to 1000000.0,
         )
 
-        // Get the conversion factors for the input units
         val fromFactor = conversionFactors.getValue(fromUnit.lowercase())
         val toFactor = conversionFactors.getValue(toUnit.lowercase())
 
-        // Convert the volume using the conversion factors
         return value * fromFactor / toFactor
     }
 
@@ -92,8 +108,17 @@ class VolumeConverterActivity : ConverterActivity() {
         val input = getEditTextInput(binding.editTextInput)
         val from = getSpinnerSelection(binding.spinnerInput)
         val to = getSpinnerSelection(binding.spinnerOutput)
-        val convertedValue = convertVolume(input, from, to)
+        val convertedValue = convertWeight(input, from, to)
         binding.textViewOutput.text = convertedValue.toString()
+    }
+
+    fun saveResult() {
+        val input = getEditTextInput(binding.editTextInput)
+        val from = getSpinnerSelection(binding.spinnerInput)
+        val to = getSpinnerSelection(binding.spinnerOutput)
+        val convertedValue = convertWeight(input, from, to)
+        binding.textViewOutput.text = convertedValue.toString()
+        saveToDatabase(this, input, from, to, convertedValue)
     }
 
 }

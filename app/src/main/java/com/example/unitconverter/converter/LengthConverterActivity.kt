@@ -1,18 +1,21 @@
-package com.example.unitconverter
+package com.example.unitconverter.converter
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
-import com.example.unitconverter.databinding.ActivityWeightConverterBinding
+import com.example.unitconverter.R
+import com.example.unitconverter.data.TableActivity
+import com.example.unitconverter.databinding.ActivityLenghtConverterBinding
 
-class WeightConverterActivity : ConverterActivity() {
-    private lateinit var binding: ActivityWeightConverterBinding
+class LengthConverterActivity : ConverterActivity() {
+    private lateinit var binding: ActivityLenghtConverterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityWeightConverterBinding.inflate(layoutInflater)
+        binding = ActivityLenghtConverterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.editTextInput.addTextChangedListener(object : TextWatcher {
@@ -54,7 +57,7 @@ class WeightConverterActivity : ConverterActivity() {
                 id: Long
             ) {
                 // This method is called whenever an item is selected in the Spinner
-                if (binding.editTextInput.text.isNotEmpty()) {
+                if (binding.textViewOutput.text.isNotEmpty()) {
                     convert()
                 }
             }
@@ -66,24 +69,25 @@ class WeightConverterActivity : ConverterActivity() {
             swapSpinnerTexts(binding.spinnerInput,binding.spinnerOutput)
         }
 
+        binding.saveToDatabaseButton.setOnClickListener {
+            saveResult()
+        }
+        editSupportActionBar(this, "Uzunluk Dönüştürücü")
     }
 
-    fun convertWeight(value: Double, fromUnit: String, toUnit: String): Double {
+    fun convertLength(value: Double, fromUnit: String, toUnit: String): Double {
         val conversionFactors = mapOf(
-            "mikrogram" to 0.000001,
-            "miligram" to 0.001,
-            "santigram" to 0.01,
-            "desigram" to 0.1,
-            "gram" to 1.0,
-            "dekagram" to 10.0,
-            "hektogram" to 100.0,
-            "kilogram" to 1000.0,
-            "megagram" to 1000000.0,
-            "ons" to 28.3495,
-            "pound" to 453.592,
-            "stone" to 6350.29,
-            "ton" to 1000000.0,
-            )
+            "inch" to 2.54,
+            "foot" to 30.48,
+            "yard" to 91.44,
+            "mil" to 160934.4,
+            "mikrometre" to 0.0001,
+            "milimetre" to 0.1,
+            "santimetre" to 1.0,
+            "metre" to 100.0,
+            "kilometre" to 100000.0,
+            "nanometre" to 0.0000001
+        )
 
         val fromFactor = conversionFactors.getValue(fromUnit.lowercase())
         val toFactor = conversionFactors.getValue(toUnit.lowercase())
@@ -95,7 +99,16 @@ class WeightConverterActivity : ConverterActivity() {
         val input = getEditTextInput(binding.editTextInput)
         val from = getSpinnerSelection(binding.spinnerInput)
         val to = getSpinnerSelection(binding.spinnerOutput)
-        val convertedValue = convertWeight(input, from, to)
+        val convertedValue = convertLength(input, from, to)
         binding.textViewOutput.text = convertedValue.toString()
+    }
+
+    fun saveResult(){
+        val input = getEditTextInput(binding.editTextInput)
+        val from = getSpinnerSelection(binding.spinnerInput)
+        val to = getSpinnerSelection(binding.spinnerOutput)
+        val convertedValue = convertLength(input, from, to)
+        binding.textViewOutput.text = convertedValue.toString()
+        saveToDatabase(this,input,from,to,convertedValue)
     }
 }

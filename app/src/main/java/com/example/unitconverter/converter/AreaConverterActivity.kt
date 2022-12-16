@@ -1,18 +1,18 @@
-package com.example.unitconverter
+package com.example.unitconverter.converter
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
-import com.example.unitconverter.databinding.ActivityLenghtConverterBinding
+import com.example.unitconverter.databinding.ActivityAreaConverterBinding
 
-class LengthConverterActivity : ConverterActivity() {
-    private lateinit var binding: ActivityLenghtConverterBinding
+class AreaConverterActivity : ConverterActivity() {
+    private lateinit var binding:ActivityAreaConverterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLenghtConverterBinding.inflate(layoutInflater)
+        binding = ActivityAreaConverterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.editTextInput.addTextChangedListener(object : TextWatcher {
@@ -65,19 +65,23 @@ class LengthConverterActivity : ConverterActivity() {
         binding.swapSpinner.setOnClickListener {
             swapSpinnerTexts(binding.spinnerInput,binding.spinnerOutput)
         }
+        editSupportActionBar(this, "Alan Dönüştürücü")
+
     }
 
-    fun convertLength(value: Double, fromUnit: String, toUnit: String): Double {
+    fun convertArea(value: Double, fromUnit: String, toUnit: String): Double {
+
         val conversionFactors = mapOf(
-            "inch" to 2.54,
-            "foot" to 30.48,
-            "yard" to 91.44,
-            "mil" to 160934.4,
-            "milimetre" to 0.1,
-            "santimetre" to 1.0,
-            "metre" to 100.0,
-            "kilometre" to 100000.0,
-            "nanometre" to 0.0000001
+            "milimetre kare" to 0.000001,
+            "santimetre kare" to 0.0001,
+            "metre kare" to 1.0,
+            "hektar" to 10000.0,
+            "kilometre kare" to 1000000.0,
+            "inch kare" to 0.00064516,
+            "foot kare" to 0.09290304,
+            "yard kare" to 0.83612736,
+            "mil kare" to 2589988.110336,
+            "akre" to 4046.8564224
         )
 
         val fromFactor = conversionFactors.getValue(fromUnit.lowercase())
@@ -90,8 +94,17 @@ class LengthConverterActivity : ConverterActivity() {
         val input = getEditTextInput(binding.editTextInput)
         val from = getSpinnerSelection(binding.spinnerInput)
         val to = getSpinnerSelection(binding.spinnerOutput)
-        val convertedValue = convertLength(input, from, to)
+        val convertedValue = convertArea(input, from, to)
         binding.textViewOutput.text = convertedValue.toString()
+    }
+
+    fun saveResult(){
+        val input = getEditTextInput(binding.editTextInput)
+        val from = getSpinnerSelection(binding.spinnerInput)
+        val to = getSpinnerSelection(binding.spinnerOutput)
+        val convertedValue = convertArea(input, from, to)
+        binding.textViewOutput.text = convertedValue.toString()
+        saveToDatabase(this,input,from,to,convertedValue)
     }
 
 }
