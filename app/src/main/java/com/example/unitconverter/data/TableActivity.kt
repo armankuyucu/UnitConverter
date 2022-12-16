@@ -18,6 +18,7 @@ class TableActivity : AppCompatActivity() {
             sqLiteHelper.deleteTable()
             updateTable()
         }
+        supportActionBar?.title = "Veri Tabanı Kayıtlarının Listesi"
     }
 
     companion object{
@@ -33,7 +34,7 @@ class TableActivity : AppCompatActivity() {
         var itemsList: MutableList<ItemsList> = mutableListOf()
 
         for (l in dataModelArrayList) {
-            itemsList.add(ItemsList("${l.date} tarihinde ${l.value} değeri,${l.from} biriminden ${l.to} biriminine dönüştürülerek ${l.result} sonucu elde edildi."))
+            itemsList.add(ItemsList("${l.date} tarihinde ${l.value} değeri, ${l.from} biriminden ${l.to} biriminine dönüştürülerek ${l.result} sonucu elde edildi."))
         }
 
         val adapter = ListAdapter(this, activity = this, itemsList)

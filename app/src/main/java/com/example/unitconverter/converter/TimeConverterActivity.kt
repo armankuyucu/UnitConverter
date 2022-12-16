@@ -1,11 +1,18 @@
 package com.example.unitconverter.converter
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.unitconverter.databinding.ActivityTimeConverterBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TimeConverterActivity : ConverterActivity() {
     private lateinit var binding: ActivityTimeConverterBinding
@@ -69,8 +76,67 @@ class TimeConverterActivity : ConverterActivity() {
         binding.saveToDatabaseButton.setOnClickListener {
             saveResult()
         }
+        binding.saveToFileButton.setOnClickListener {
+            // Check if the app has the WRITE_EXTERNAL_STORAGE permission
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+
+                // If the app doesn't have the permission, request it
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    REQUEST_WRITE_EXTERNAL_STORAGE
+                )
+            } else {
+                // If the app already has the permission, create the text file
+                val simpleDataFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                val date: String = simpleDataFormat.format(Date())
+
+                createTextFile(
+                    date,
+                    binding.editTextInput.text.toString(),
+                    binding.spinnerInput.selectedItem.toString(),
+                    binding.spinnerOutput.selectedItem.toString(),
+                    binding.textViewOutput.text.toString()
+                )
+            }
+        }
 
         editSupportActionBar(this, "Zaman Dönüştürücü")
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_WRITE_EXTERNAL_STORAGE) {
+            // Check if the permission was granted
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // The permission was granted, create the text file
+                val simpleDataFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                val date: String = simpleDataFormat.format(Date())
+
+                createTextFile(
+                    date,
+                    binding.editTextInput.text.toString(),
+                    binding.spinnerInput.selectedItem.toString(),
+                    binding.spinnerOutput.selectedItem.toString(),
+                    binding.textViewOutput.text.toString()
+                )
+            } else {
+                // The permission was denied, show a message to the user
+                Toast.makeText(
+                    this,
+                    "Dosyanın yaratılması için WRITE_EXTERNAL_STORAGE iznine gerek duyuluyor.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     fun convertTime(value: Double, fromUnit: String, toUnit: String): Double {

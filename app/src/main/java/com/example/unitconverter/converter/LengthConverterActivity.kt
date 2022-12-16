@@ -1,14 +1,21 @@
 package com.example.unitconverter.converter
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.unitconverter.R
 import com.example.unitconverter.data.TableActivity
 import com.example.unitconverter.databinding.ActivityLenghtConverterBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class LengthConverterActivity : ConverterActivity() {
     private lateinit var binding: ActivityLenghtConverterBinding
@@ -66,13 +73,73 @@ class LengthConverterActivity : ConverterActivity() {
         }
 
         binding.swapSpinner.setOnClickListener {
-            swapSpinnerTexts(binding.spinnerInput,binding.spinnerOutput)
+            swapSpinnerTexts(binding.spinnerInput, binding.spinnerOutput)
         }
 
         binding.saveToDatabaseButton.setOnClickListener {
             saveResult()
         }
+        binding.saveToFileButton.setOnClickListener {
+            // Check if the app has the WRITE_EXTERNAL_STORAGE permission
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+
+                // If the app doesn't have the permission, request it
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    REQUEST_WRITE_EXTERNAL_STORAGE
+                )
+            } else {
+                // If the app already has the permission, create the text file
+                val simpleDataFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                val date: String = simpleDataFormat.format(Date())
+
+                createTextFile(
+                    date,
+                    binding.editTextInput.text.toString(),
+                    binding.spinnerInput.selectedItem.toString(),
+                    binding.spinnerOutput.selectedItem.toString(),
+                    binding.textViewOutput.text.toString()
+                )
+            }
+        }
+
         editSupportActionBar(this, "Uzunluk Dönüştürücü")
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_WRITE_EXTERNAL_STORAGE) {
+            // Check if the permission was granted
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // The permission was granted, create the text file
+                val simpleDataFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                val date: String = simpleDataFormat.format(Date())
+
+                createTextFile(
+                    date,
+                    binding.editTextInput.text.toString(),
+                    binding.spinnerInput.selectedItem.toString(),
+                    binding.spinnerOutput.selectedItem.toString(),
+                    binding.textViewOutput.text.toString()
+                )
+            } else {
+                // The permission was denied, show a message to the user
+                Toast.makeText(
+                    this,
+                    "Dosyanın yaratılması için WRITE_EXTERNAL_STORAGE iznine gerek duyuluyor.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     fun convertLength(value: Double, fromUnit: String, toUnit: String): Double {
@@ -103,12 +170,12 @@ class LengthConverterActivity : ConverterActivity() {
         binding.textViewOutput.text = convertedValue.toString()
     }
 
-    fun saveResult(){
+    fun saveResult() {
         val input = getEditTextInput(binding.editTextInput)
         val from = getSpinnerSelection(binding.spinnerInput)
         val to = getSpinnerSelection(binding.spinnerOutput)
         val convertedValue = convertLength(input, from, to)
         binding.textViewOutput.text = convertedValue.toString()
-        saveToDatabase(this,input,from,to,convertedValue)
+        saveToDatabase(this, input, from, to, convertedValue)
     }
 }
